@@ -2,7 +2,7 @@
 	{{#global.notifications}}
 	<div class="notification {{levelClassName}} content" id="notification-{{id}}">
 		{{#closeUrl}}
-			<button data-close-url="{{closeUrl}}" data-id="{{id}}" class="delete close-notification-button"></button>
+			<button aria-label="aria-delete-button" data-close-url="{{closeUrl}}" data-id="{{id}}" class="delete close-notification-button"></button>
 		{{/closeUrl}}
 		{{{messageHtml}}}
 	</div>
