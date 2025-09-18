@@ -34,7 +34,10 @@
 </section>
 
 <script>
-$(() => {
-	setupPasswordStrengthHandler();
-});
+  // prevent var $ from jQuery not defined, load jQuery script then this
+  document.addEventListener("DOMContentLoaded", () => {
+    $(() => {
+      setupPasswordStrengthHandler();
+    });
+  });
 </script>
