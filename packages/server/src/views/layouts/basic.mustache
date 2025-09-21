@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
   <meta name="description" content="Joplin Server.">
 	{{> favicons}}
-	<link rel="stylesheet" href="{{{global.baseUrl}}}/css/main.css" crossorigin="anonymous">
+  <link rel="preload" href="{{{global.baseUrl}}}/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{{global.baseUrl}}}/css/main.css"></noscript>
 	{{#cssFiles}}
 		<link rel="stylesheet" href="{{{.}}}" crossorigin="anonymous">
 	{{/cssFiles}}

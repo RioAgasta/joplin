@@ -1,8 +1,8 @@
 <td class="{{#classNames}}{{.}} {{/classNames}}">
 	{{#checkbox}}
-		<input type="checkbox" name="{{value}}"/>
+		<input type="checkbox" name="{{value}}" aria-label="{{value}}"/>
 	{{/checkbox}}
 	{{^checkbox}}
-		{{#url}}<a href="{{.}}"></span>{{/url}}{{#hint}}<abbr title="{{.}}">{{/hint}}{{#valueHtml}}{{{valueHtml}}}{{/valueHtml}}{{^valueHtml}}{{value}}{{/valueHtml}}</a>{{#hint}}</abbr>{{/hint}}
+		{{#url}}<a href="{{.}}" aria-label="learn more about users"></span>{{/url}}{{#hint}}<abbr title="{{.}}">{{/hint}}{{#valueHtml}}{{{valueHtml}}}{{/valueHtml}}{{^valueHtml}}{{value}}{{/valueHtml}}</a>{{#hint}}</abbr>{{/hint}}
 	{{/checkbox}}
 </td>
