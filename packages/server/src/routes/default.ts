@@ -49,6 +49,7 @@ async function findLocalFile(path: string): Promise<string> {
 }
 
 const patchFile = (path: string, fileContent: Buffer): Buffer => {
+	// NOTE: NEED TO REBUILD USING 'yarn rebuild' AFTER CHANGES
 	const patches: Record<string, (fileContent: Buffer)=> Buffer> = {
 		'css/bulma.min.css': fileContent => {
 			// We apply the patch here rather than with `yarn patch` because that would mean
@@ -57,6 +58,14 @@ const patchFile = (path: string, fileContent: Buffer): Buffer => {
 			// their own style inherited from clipped web pages. Having dark theme in the web UI is
 			// not that useful because it's not frequently accessed by users.
 			return Buffer.from(fileContent.toString().replace('prefers-color-scheme:dark', 'prefers-color-scheme:dark-disabled-by-patch'), 'utf-8');
+		},
+		'css/fontawesome/css/all.min.css': fileContent => {
+			// The font that represent emoji/icon called 'fa-solid-900' is blocking the request.
+			// This happened because the font-display property for load that font is 'block', which is
+			// blocking the main html content when first load. To improve the performance, this font
+			// needs to be loaded later. By set font-display value to 'swap', the browser will use
+			// the fallback font to display the text until this font has fully downloaded.
+			return Buffer.from(fileContent.toString().replace(/font-display\s*:\s*block/gi, 'font-display:swap'), 'utf-8');
 		},
 	};
 
