@@ -68,6 +68,10 @@ export interface NoteEditorProps {
 	bodyEditor: string;
 	startupPluginsLoaded: boolean;
 	enableHtmlToMarkdownBanner: boolean;
+	sidebarVisible?: boolean;
+	noteListVisible?: boolean;
+	toggleSidebar?: () => void;
+	toggleNoteList?: () => void;
 }
 
 export interface NoteBodyEditorRef {

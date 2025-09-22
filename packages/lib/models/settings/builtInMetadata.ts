@@ -58,6 +58,7 @@ const builtInMetadata = (Setting: typeof SettingType) => {
 		output[Setting.THEME_NORD] = _('Nord');
 		output[Setting.THEME_ARITIM_DARK] = _('Aritim Dark');
 		output[Setting.THEME_OLED_DARK] = _('OLED Dark');
+		output[Setting.THEME_CATPPUCCIN_MOCHA] = _('Catppuccin Mocha');
 		return output;
 	};
 

@@ -16,6 +16,10 @@ interface Props {
 	titleInputRef: React.RefObject<HTMLInputElement>;
 	onTitleChange(event: ChangeEvent<HTMLInputElement>): void;
 	disabled: boolean;
+	sidebarVisible?: boolean;
+	noteListVisible?: boolean;
+	toggleSidebar?: () => void;
+	toggleNoteList?: () => void;
 }
 
 function styles_(props: Props) {
@@ -111,6 +115,10 @@ export default function NoteTitleBar(props: Props) {
 			style={styles.toolbarStyle}
 			disabled={props.disabled}
 			windowId={windowId}
+			noteListVisible={props.noteListVisible}
+			sidebarVisible={props.sidebarVisible}
+			toggleNoteList={props.toggleNoteList}
+			toggleSidebar={props.toggleSidebar}
 		/>;
 	}
 

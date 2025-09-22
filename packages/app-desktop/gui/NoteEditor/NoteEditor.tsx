@@ -680,6 +680,10 @@ function NoteEditorContent(props: NoteEditorProps) {
 					noteUserUpdatedTime={formNote.user_updated_time}
 					onTitleChange={onTitleChange}
 					disabled={isReadOnly}
+					noteListVisible={props.noteListVisible}
+					sidebarVisible={props.sidebarVisible}
+					toggleNoteList={props.toggleNoteList}
+					toggleSidebar={props.toggleSidebar}
 				/>
 				{renderSearchInfo()}
 				<div style={{ display: 'flex', flex: 1, paddingLeft: theme.editorPaddingLeft, maxHeight: '100%', minHeight: '0' }}>

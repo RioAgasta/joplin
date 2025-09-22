@@ -35,6 +35,7 @@ function Toolbar(props: ToolbarProps) {
 			id="CodeMirrorToolbar"
 			style={styles.root}
 			scrollable={true}
+			hasToggles={false}
 			items={props.toolbarButtonInfos}
 			disabled={!!props.disabled}
 			aria-label={_('Editor actions')}

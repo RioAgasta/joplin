@@ -16,6 +16,10 @@ interface NoteToolbarProps {
 	style: any;
 	toolbarButtonInfos: ToolbarItem[];
 	disabled: boolean;
+	sidebarVisible?: boolean;
+	noteListVisible?: boolean;
+	toggleSidebar?: () => void;
+	toggleNoteList?: () => void;
 }
 
 function styles_(props: NoteToolbarProps) {
@@ -39,6 +43,11 @@ function NoteToolbar(props: NoteToolbarProps) {
 			items={props.toolbarButtonInfos}
 			disabled={props.disabled}
 			aria-label={_('Note')}
+			hasToggles={true}
+			noteListVisible={props.noteListVisible}
+			sidebarVisible={props.sidebarVisible}
+			toggleNoteList={props.toggleNoteList}
+			toggleSidebar={props.toggleSidebar}
 		/>
 	);
 }

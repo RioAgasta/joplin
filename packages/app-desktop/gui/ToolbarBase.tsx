@@ -7,6 +7,7 @@ import { AppState } from '../app.reducer';
 import { connect } from 'react-redux';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { focus } from '@joplin/lib/utils/focusHandler';
+import { _ } from '@joplin/lib/locale';
 
 interface Props {
 	themeId: number;
@@ -16,6 +17,11 @@ interface Props {
 	disabled: boolean;
 	'aria-label': string;
 	id?: string;
+	hasToggles: boolean;
+	sidebarVisible?: boolean;
+	noteListVisible?: boolean;
+	toggleSidebar?: () => void;
+	toggleNoteList?: () => void;
 }
 
 const getItemType = (item: ToolbarItem) => {
@@ -176,6 +182,8 @@ const ToolbarBaseComponent: React.FC<Props> = props => {
 		focusableItems,
 	);
 
+	const { sidebarVisible, noteListVisible, toggleSidebar, toggleNoteList } = props;
+
 	return (
 		<div
 			ref={containerRef}
@@ -189,6 +197,13 @@ const ToolbarBaseComponent: React.FC<Props> = props => {
 			onKeyDown={onKeyDown}
 		>
 			<div className='group'>
+				{props.hasToggles && (<>
+				<button title={sidebarVisible ? _('Hide Notebook List') : _('Show Notebook List')} className='button toolbar-button' onClick={toggleSidebar}>
+					<i role='img' className='toolbar-icon fa fa-book' aria-hidden="true"></i>
+				</button>
+				<button title={noteListVisible ? _('Hide Note List') : _('Show Note List')} className='button toolbar-button' onClick={toggleNoteList}>
+					<i role='img' className='toolbar-icon fa fa-bars' aria-hidden="true"></i>
+				</button></>)}
 				{leftItemComps}
 			</div>
 			<div className='group'>

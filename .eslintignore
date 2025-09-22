@@ -1637,6 +1637,7 @@ packages/lib/testing/test-utils-synchronizer.js
 packages/lib/testing/test-utils.js
 packages/lib/theme.js
 packages/lib/themes/aritimDark.js
+packages/lib/themes/catppuccinMocha.js
 packages/lib/themes/dark.js
 packages/lib/themes/dracula.js
 packages/lib/themes/light.js

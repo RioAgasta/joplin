@@ -104,6 +104,8 @@ interface State {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Old code before rule was applied
 	shareNoteDialogOptions: any;
 	shareFolderDialogOptions: ShareFolderDialogOptions;
+	sidebarVisible: boolean;
+	noteListVisible: boolean;
 }
 
 const StyledUserWebviewDialogContainer = styled.div`
@@ -158,6 +160,8 @@ class MainScreenComponent extends React.Component<Props, State> {
 				visible: false,
 				folderId: '',
 			},
+			sidebarVisible: true,
+			noteListVisible: true
 		};
 
 		this.updateMainLayout(this.buildLayout(props.plugins));
@@ -267,6 +271,11 @@ class MainScreenComponent extends React.Component<Props, State> {
 
 	private window_resize() {
 		this.updateRootLayoutSize();
+		const isSmall = window.innerWidth < 700;
+		this.setState({
+			sidebarVisible: !isSmall,
+			noteListVisible: !isSmall
+		})
 	}
 
 	public setupAppCloseHandling() {
@@ -683,6 +692,10 @@ class MainScreenComponent extends React.Component<Props, State> {
 						windowId={defaultWindowId}
 						key={key}
 						startupPluginsLoaded={this.props.startupPluginsLoaded}
+						noteListVisible={this.state.noteListVisible}
+						sidebarVisible={this.state.sidebarVisible}
+						toggleNoteList={this.toggleNoteList}
+						toggleSidebar={this.toggleSidebar}
 					/>
 				</div>;
 			},
@@ -774,7 +787,16 @@ class MainScreenComponent extends React.Component<Props, State> {
 		return layoutKeyToLabel(key, this.props.plugins);
 	};
 
+	toggleSidebar = () => {
+		this.setState({ sidebarVisible: !this.state.sidebarVisible });
+	}
+
+	toggleNoteList = () => {
+		this.setState({ noteListVisible: !this.state.noteListVisible });
+	}
+
 	public render() {
+		const { sidebarVisible, noteListVisible } = this.state;
 		const theme = themeStyle(this.props.themeId);
 		const style = {
 			color: theme.color,
@@ -785,10 +807,20 @@ class MainScreenComponent extends React.Component<Props, State> {
 
 		const messageComp = this.renderNotification(theme, styles);
 
+		let filteredLayout = produce(this.props.mainLayout, (draft: LayoutItem) => {
+			if (draft.children) {
+				draft.children = draft.children.filter(child => {
+					if (child.key === 'sideBar' && !sidebarVisible) return false;
+					if (child.key === 'noteList' && !noteListVisible) return false;
+					return true;
+				})
+			}
+		});
+
 		const layoutComp = this.props.mainLayout ? (
 			<ResizableLayout
 				height={styles.rowHeight}
-				layout={this.props.mainLayout}
+				layout={filteredLayout}
 				onResize={this.resizableLayout_resize}
 				onMoveButtonClick={this.resizableLayout_moveButtonClick}
 				renderItem={this.resizableLayout_renderItem}
