@@ -70,6 +70,42 @@ export default class Folder extends BaseItem {
 		return this.modelSelectAll(`SELECT ${this.selectFields(options)} FROM notes WHERE ${where.join(' AND ')}`, [parentId]);
 	}
 
+	public static async getValidFolderForNewNote(preferredFolderId: string = null): Promise<string | null> {
+		// 1. Check if preferred folder is valid and not in trash
+		if (preferredFolderId) {
+			const folder = await this.load(preferredFolderId);
+			if (folder && !folder.deleted_time) {
+				return preferredFolderId;
+			}
+		}
+
+		// 2. Try to get default folder
+		const defaultFolder = await this.defaultFolder();
+		if (defaultFolder && !defaultFolder.deleted_time) {
+			return defaultFolder.id;
+		}
+
+		// 3. Get any valid folder (not in trash)
+		const validFolders = await this.modelSelectAll(
+			'SELECT id FROM folders WHERE deleted_time = 0 ORDER BY updated_time DESC LIMIT 1',
+		);
+		if (validFolders.length > 0) {
+			return validFolders[0].id;
+		}
+
+		// 4. No valid folder exists - create a default one
+		const newFolder = await this.save({
+			title: _('Default notebook'),
+		});
+		return newFolder.id;
+	}
+
+	public static async isValidForNewNote(folderId: string): Promise<boolean> {
+		if (!folderId) return false;
+		const folder = await this.load(folderId);
+		return folder && !folder.deleted_time;
+	}
+
 	public static async noteIds(parentId: string, options: LoadOptions = null) {
 		const notes = await this.notes(parentId, {
 			fields: ['id'],
