@@ -126,13 +126,24 @@ shared.saveNoteButton_press = async function(comp: BaseNoteScreenComponent, stat
 	if (recreatedNote) note = recreatedNote;
 
 	if (folderId) {
-		note.parent_id = folderId;
+		// Validate that the specified folder is not in trash
+		const isValidFolder = await Folder.isValidForNewNote(folderId);
+		if (isValidFolder) {
+			note.parent_id = folderId;
+		} else {
+			// Use a valid alternative folder
+			const validFolderId = await Folder.getValidFolderForNewNote();
+			if (validFolderId) {
+				note.parent_id = validFolderId;
+			} else {
+				return releaseMutex();
+			}
+		}
 	} else if (!note.parent_id) {
 		const activeFolderId = Setting.value('activeFolderId');
-		let folder = await Folder.load(activeFolderId);
-		if (!folder) folder = await Folder.defaultFolder();
-		if (!folder) return releaseMutex();
-		note.parent_id = folder.id;
+		const validFolderId = await Folder.getValidFolderForNewNote(activeFolderId);
+		if (!validFolderId) return releaseMutex();
+		note.parent_id = validFolderId;
 	}
 
 	const isProvisionalNote = comp.props.provisionalNoteIds.includes(note.id);
