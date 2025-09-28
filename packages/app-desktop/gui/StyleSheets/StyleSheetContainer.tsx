@@ -29,7 +29,7 @@ interface Props {
 const editorFontFromSettings = (settingValue: string) => {
 	const fontFamilies = [];
 	if (settingValue) fontFamilies.push(`"${settingValue}"`);
-	fontFamilies.push('\'Avenir Next\', Avenir, Arial, sans-serif');
+	fontFamilies.push('monospace, \'Avenir Next\', Avenir, Arial, sans-serif');
 
 	return fontFamilies;
 };
