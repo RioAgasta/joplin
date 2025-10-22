@@ -18,8 +18,8 @@
   "author": "",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@joplin/lib": "~3.4",
-    "@joplin/tools": "~3.4",
+    "@joplin/lib": "~3.5.1",
+    "@joplin/tools": "~3.0.1",
     "@joplin/utils": "~3.4",
     "fs-extra": "11.2.0",
     "gh-release-assets": "2.0.1",
