@@ -30,9 +30,9 @@
     "typescript": "5.8.2"
   },
   "dependencies": {
-    "@joplin/fork-htmlparser2": "^4.1.58",
-    "@joplin/fork-uslug": "^2.0.1",
-    "@joplin/utils": "~3.4",
+    "@joplin/fork-htmlparser2": "^4.1.9",
+    "@joplin/fork-uslug": "^1.0.5",
+    "@joplin/utils": "~2.11.1",
     "font-awesome-filetypes": "2.1.0",
     "fs-extra": "11.2.0",
     "highlight.js": "11.11.1",
