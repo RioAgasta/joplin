@@ -14,7 +14,7 @@
     "watch": "tsc --watch --preserveWatchOutput --project tsconfig.json"
   },
   "dependencies": {
-    "@joplin/utils": "~3.4",
+    "@joplin/utils": "~2.11.1",
     "@koa/cors": "3.4.3",
     "dotenv": "16.5.0",
     "file-type": "16.5.4",
