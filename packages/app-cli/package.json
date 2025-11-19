@@ -41,9 +41,9 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "@joplin/lib": "~3.4",
-    "@joplin/renderer": "~3.4",
-    "@joplin/utils": "~3.4",
+    "@joplin/lib": "~1.0.13",
+    "@joplin/renderer": "~1.0.21",
+    "@joplin/utils": "~2.11.1",
     "aws-sdk": "2.1340.0",
     "chalk": "4.1.2",
     "compare-version": "0.1.2",
